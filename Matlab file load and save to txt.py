@@ -6,9 +6,9 @@ Created on Sun Jan 22 21:51:15 2017
 """
 import numpy as np
 import scipy.io
-mat = scipy.io.loadmat('D:/UCF/STA 6908 - Alexander V. Mantzaris/Data/enronAtensor.mat')
+mat = scipy.io.loadmat('enronAtensor.mat')
 data = mat.get('enronAtensor')
-with open('D:/UCF/STA 6908 - Alexander V. Mantzaris/Data/enronAtensor.txt', 'w') as outfile:
+with open('enronAtensor.txt', 'w') as outfile:
 
     outfile.write('# Array shape: {0}\n'.format(data.shape))
 
@@ -31,7 +31,7 @@ with open('D:/UCF/STA 6908 - Alexander V. Mantzaris/Data/enronAtensor.txt', 'w')
 
         
 # Read the array from disk
-new_data = np.loadtxt('D:/UCF/STA 6908 - Alexander V. Mantzaris/Data/enronAtensor.txt')
+new_data = np.loadtxt('enronAtensor.txt')
 
 print(new_data.shape)
 
