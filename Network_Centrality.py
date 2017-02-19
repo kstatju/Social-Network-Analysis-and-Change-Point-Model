@@ -77,23 +77,15 @@ def create_sym(x):
         #ensure symmetric, binary, zero diag
         x = np.sign(x + np.transpose(x))
         np.fill_diagonal(x, 0)
-#        w, v = np.linalg.eig(x)
-#        dayspec = np.max(np.abs(w))
-#        return({'data': x, 'max_eigen':dayspec})
         return(x)
 
         
     Atensor = np.zeros((nday, nnode,nnode), dtype=int)
-#    dayspec = np.zeros(nday, dtype=float)
     for k in range(nday):
         A = x[k,:,:]
         A = np.sign(A+np.transpose(A))
         np.fill_diagonal(A, 0)
         Atensor[k,:,:] = A
-#        w, v = np.linalg.eig(A)
-#        dayspec[k] = np.max(np.abs(w))
-    
-#    return({'data': Atensor, 'max_eigen':dayspec})
     return(Atensor)
 
 ######################################################
@@ -117,15 +109,14 @@ def grindrod(x,
         print ("Input data is not Symmetric")
         return
 
-    Adeg = np.zeros(nday, dtype=float)
     B = np.identity(nnode)
     I = np.identity(nnode)
     for k in reversed(range(nday)):
         Aday = x[k,:,:]
-        Adeg[k] = np.sum(Aday, axis=(0,1))/2.0
         B = np.dot(np.linalg.inv(I - alpha*Aday),B)
         B = abs(B)
         B = B/np.linalg.norm(B)
+    print('A. V. Mantzaris and D. J. Higham, “A model for dynamic communicators,” European Journal of Applied Mathematics, vol. 23, no. 06, pp. 659–668, 2012.')
     return(B)
 
     
@@ -179,6 +170,7 @@ def katz(x,
     if alpha == None:
         w,v = np.linalg.eig(x)
         alpha = np.round_(1/max(np.abs(w)), decimals = 3) #%gives 0.0196
+    print('L. Katz, “A new status index derived from sociometric analysis,” Psychometrika, vol. 18, no. 1, pp. 39–43, 1953.')
     return(np.linalg.inv(np.identity(N) - alpha*x))
 
 
